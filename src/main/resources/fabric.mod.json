@@ -4,9 +4,10 @@
   "version": "${version}",
 
   "name": "Dimensional Inventories Extension: Trinkets",
-  "description": "An extension for Dimensional Inventories providing support for Trinkets.",
+  "description": "An extension for Dimensional Inventories providing support for Trinkets. Report issues to Searchies.",
   "authors": [
-    "Thomilist"
+    "Thomilist",
+    "Searchies"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/dimensional-inventories-extension-trinkets",

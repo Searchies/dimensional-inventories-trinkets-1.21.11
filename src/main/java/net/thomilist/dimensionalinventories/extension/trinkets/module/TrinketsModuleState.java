@@ -5,7 +5,9 @@ import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.NbtReadView;
 import net.minecraft.storage.NbtWriteView;
+import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.ErrorReporter;
 import net.thomilist.dimensionalinventories.module.base.player.PlayerModuleState;
@@ -36,20 +38,20 @@ public class TrinketsModuleState
     {
         TrinketsApi.getTrinketComponent( serverPlayerEntity ).ifPresent( trinketComponent -> {
             TrinketsModuleState.clearTrinkets( trinketComponent );
-            WriteView view = NbtWriteView.create(ErrorReporter.EMPTY);
-            trinketComponent.writeData(view);
-
-//            (this.trinketComponentNbt, serverPlayerEntity.getRegistryManager());
+            ReadView view = NbtReadView.create(ErrorReporter.EMPTY, serverPlayerEntity.getRegistryManager(), this.trinketComponentNbt);
+            trinketComponent.readData(view);
         } );
     }
 
     @Override
     public void loadFromPlayer( final ServerPlayerEntity serverPlayerEntity )
     {
-        this.trinketComponentNbt = new NbtCompound();
+        NbtWriteView view = NbtWriteView.create(ErrorReporter.EMPTY, serverPlayerEntity.getRegistryManager());
         TrinketsApi
             .getTrinketComponent( serverPlayerEntity )
-            .ifPresent( trinketComponent -> trinketComponent.readData(this.trinketComponentNbt, serverPlayerEntity.getRegistryManager()) );
+            .ifPresent( trinketComponent -> trinketComponent.writeData(view) );
+
+        this.trinketComponentNbt = view.getNbt();
     }
 
     @Override
