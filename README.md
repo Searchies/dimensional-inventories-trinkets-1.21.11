@@ -1,3 +1,5 @@
+THIS IS A FORK OF https://github.com/Thomilist/dimensional-inventories-extension-trinkets
+
 # Dimensional Inventories Extension: Trinkets
 
 An extension for [Dimensional Inventories](https://modrinth.com/mod/dimensional-inventories) providing support for the [Trinkets](https://modrinth.com/mod/trinkets) mod.
